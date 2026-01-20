@@ -1,0 +1,14 @@
+node_modules
+.next
+.env*.local
+.git
+.gitignore
+README.md
+*.md
+.DS_Store
+coverage
+.nyc_output
+backend
+docker-compose.yml
+Dockerfile*
+.dockerignore

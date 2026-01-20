@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies (use npm install for development since package-lock.json may not exist)
+RUN npm install
+
+# Copy the rest of the application
+COPY . .
+
+EXPOSE 3001
+
+CMD ["npm", "run", "start:dev"]
