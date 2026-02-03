@@ -14,7 +14,7 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="text-2xl font-bold text-primary-600">
-            Mika Lifestyle
+            Mikat Lifestyle
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
