@@ -117,6 +117,16 @@ mikatlifestyle/
 - `npm run build` — Build for production
 - `npm run start` — Run production server
 
+## Deploying to Vercel (frontend only)
+
+The Next.js app lives in the `frontend/` folder. In Vercel:
+
+1. **Root Directory:** Set to **`frontend`** (Settings → General → Root Directory).  
+   Without this, Vercel looks at the repo root and fails with "No Next.js version detected".
+2. Add env var **`NEXT_PUBLIC_API_URL`** pointing to your backend API URL (e.g. your NestJS deployment).
+
+Then connect your GitHub repo and deploy; Vercel will build from `frontend/`.
+
 ## License
 
 Private / Unlicensed
