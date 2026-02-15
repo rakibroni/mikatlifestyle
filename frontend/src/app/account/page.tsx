@@ -50,27 +50,19 @@ export default function AccountPage() {
       <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-semibold text-gray-600 mb-1">
-              Email
-            </label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">Email</label>
             <p className="text-lg">{user.email}</p>
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-600 mb-1">
-              First Name
-            </label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">First Name</label>
             <p className="text-lg">{user.firstName}</p>
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-600 mb-1">
-              Last Name
-            </label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">Last Name</label>
             <p className="text-lg">{user.lastName}</p>
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-600 mb-1">
-              Role
-            </label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">Role</label>
             <p className="text-lg capitalize">{user.role}</p>
           </div>
         </div>

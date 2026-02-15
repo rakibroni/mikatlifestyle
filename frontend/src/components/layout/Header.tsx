@@ -33,10 +33,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <Link
-              href="/cart"
-              className="relative p-2 hover:text-primary-600 transition"
-            >
+            <Link href="/cart" className="relative p-2 hover:text-primary-600 transition">
               <ShoppingCart className="h-6 w-6" />
               {itemCount > 0 && (
                 <span className="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-primary-600 text-xs text-white">
@@ -47,10 +44,7 @@ export function Header() {
             <Link href="/account" className="p-2 hover:text-primary-600 transition">
               <User className="h-6 w-6" />
             </Link>
-            <button
-              className="md:hidden p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
+            <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <Menu className="h-6 w-6" />
             </button>
           </div>

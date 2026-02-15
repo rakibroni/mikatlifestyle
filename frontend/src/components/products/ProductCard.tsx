@@ -51,9 +51,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-semibold text-lg mb-2 line-clamp-2">{product.name}</h3>
           <p className="text-gray-600 text-sm mb-3 line-clamp-2">{product.description}</p>
           <div className="flex items-center justify-between">
-            <span className="text-xl font-bold text-primary-600">
-              {formatPrice(product.price)}
-            </span>
+            <span className="text-xl font-bold text-primary-600">{formatPrice(product.price)}</span>
             <button
               onClick={handleAddToCart}
               className="p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition"
