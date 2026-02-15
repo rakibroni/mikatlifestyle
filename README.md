@@ -24,6 +24,7 @@ E-commerce full-stack application with a Next.js frontend, NestJS backend, and P
    ```
 
 3. Open in your browser:
+
    - **Frontend:** http://localhost:3000
    - **Backend API:** http://localhost:3001
 
@@ -75,23 +76,23 @@ App runs at http://localhost:3000.
 
 ### Backend (`backend/.env`)
 
-| Variable       | Description           | Default                          |
-|----------------|-----------------------|----------------------------------|
-| DB_HOST        | PostgreSQL host       | localhost                        |
-| DB_PORT        | PostgreSQL port       | 5432                             |
-| DB_USERNAME    | DB user               | postgres                         |
-| DB_PASSWORD    | DB password           | postgres                         |
-| DB_NAME        | Database name         | mikatlifestyle                   |
+| Variable       | Description           | Default                            |
+| -------------- | --------------------- | ---------------------------------- |
+| DB_HOST        | PostgreSQL host       | localhost                          |
+| DB_PORT        | PostgreSQL port       | 5432                               |
+| DB_USERNAME    | DB user               | postgres                           |
+| DB_PASSWORD    | DB password           | postgres                           |
+| DB_NAME        | Database name         | mikatlifestyle                     |
 | JWT_SECRET     | Secret for JWT tokens | (set a strong value in production) |
-| JWT_EXPIRES_IN | Token expiry          | 7d                               |
-| PORT           | API port              | 3001                             |
-| FRONTEND_URL   | Frontend origin       | http://localhost:3000            |
+| JWT_EXPIRES_IN | Token expiry          | 7d                                 |
+| PORT           | API port              | 3001                               |
+| FRONTEND_URL   | Frontend origin       | http://localhost:3000              |
 
 ### Frontend (`frontend/.env.local`)
 
-| Variable             | Description   | Default            |
-|----------------------|---------------|--------------------|
-| NEXT_PUBLIC_API_URL  | Backend API   | http://localhost:3001 |
+| Variable            | Description | Default               |
+| ------------------- | ----------- | --------------------- |
+| NEXT_PUBLIC_API_URL | Backend API | http://localhost:3001 |
 
 ## Project Structure
 
@@ -126,6 +127,16 @@ The Next.js app lives in the `frontend/` folder. In Vercel:
 2. Add env var **`NEXT_PUBLIC_API_URL`** pointing to your backend API URL (e.g. your NestJS deployment).
 
 Then connect your GitHub repo and deploy; Vercel will build from `frontend/`.
+
+## CI (GitHub Actions)
+
+The repo runs ESLint, Prettier, type check, tests, build, and security audit on every push and PR to `main`. **If CI fails with "command not found" for Prettier or Jest**, update the frontend lock file and commit it:
+
+```bash
+cd frontend && npm install && cd ..
+git add frontend/package-lock.json && git commit -m "chore: update frontend lock file for CI"
+git push
+```
 
 ## License
 
