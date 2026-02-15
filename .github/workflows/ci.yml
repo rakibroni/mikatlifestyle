@@ -74,6 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [eslint, prettier, typecheck, test]
     steps:
+      - uses: actions/checkout@v4
       - run: echo "ESLint, Prettier, Type check (tsc), and Tests passed"
 
   build:
