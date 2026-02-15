@@ -104,7 +104,7 @@ export default function ProductDetailPage() {
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">Product not found</h1>
         <p className="text-gray-600 mb-6">
-          The product you're looking for doesn't exist or has been removed.
+          The product you&apos;re looking for doesn&apos;t exist or has been removed.
         </p>
         <Link
           href="/products"
