@@ -108,3 +108,9 @@ export const dummyProductsWomen: Product[] = [
     womenCategory
   ),
 ]
+
+const allDummyProducts = [...dummyProductsMen, ...dummyProductsWomen]
+
+export function getDummyProductById(id: string): Product | undefined {
+  return allDummyProducts.find((p) => p.id === id)
+}
