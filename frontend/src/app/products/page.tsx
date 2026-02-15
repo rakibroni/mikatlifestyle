@@ -19,7 +19,7 @@ export default function ProductsPage() {
         const params = new URLSearchParams()
         if (filters.gender) params.append('gender', filters.gender)
         if (filters.categoryId) params.append('categoryId', filters.categoryId)
-        
+
         const response = await api.get(`/products?${params.toString()}`)
         setProducts(response.data.data)
       } catch (error) {
@@ -50,7 +50,7 @@ export default function ProductsPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">All Products</h1>
-      
+
       <div className="mb-8 flex gap-4">
         <select
           value={filters.gender}

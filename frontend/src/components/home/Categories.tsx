@@ -29,9 +29,7 @@ export function Categories() {
               className="group relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-xl transition"
             >
               <div className="aspect-[4/3] bg-gradient-to-br from-primary-100 to-primary-300 flex items-center justify-center">
-                <span className="text-4xl font-bold text-primary-600">
-                  {category.name}
-                </span>
+                <span className="text-4xl font-bold text-primary-600">{category.name}</span>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{category.name}</h3>

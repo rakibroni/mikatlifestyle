@@ -29,7 +29,7 @@ export default function CartPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8">Shopping Cart</h1>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-4">
           {items.map((item, index) => (
@@ -51,7 +51,7 @@ export default function CartPage() {
                   </div>
                 )}
               </div>
-              
+
               <div className="flex-1">
                 <h3 className="font-semibold text-lg">{item.product.name}</h3>
                 <p className="text-gray-600 text-sm">
@@ -69,16 +69,11 @@ export default function CartPage() {
                 >
                   <Trash2 className="h-5 w-5" />
                 </button>
-                
+
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() =>
-                      updateQuantity(
-                        item.product.id,
-                        item.size,
-                        item.color,
-                        item.quantity - 1
-                      )
+                      updateQuantity(item.product.id, item.size, item.color, item.quantity - 1)
                     }
                     className="p-1 border rounded hover:bg-gray-100"
                   >
@@ -87,22 +82,15 @@ export default function CartPage() {
                   <span className="w-8 text-center">{item.quantity}</span>
                   <button
                     onClick={() =>
-                      updateQuantity(
-                        item.product.id,
-                        item.size,
-                        item.color,
-                        item.quantity + 1
-                      )
+                      updateQuantity(item.product.id, item.size, item.color, item.quantity + 1)
                     }
                     className="p-1 border rounded hover:bg-gray-100"
                   >
                     <Plus className="h-4 w-4" />
                   </button>
                 </div>
-                
-                <p className="font-semibold">
-                  {formatPrice(item.product.price * item.quantity)}
-                </p>
+
+                <p className="font-semibold">{formatPrice(item.product.price * item.quantity)}</p>
               </div>
             </div>
           ))}
@@ -131,10 +119,7 @@ export default function CartPage() {
             >
               Proceed to Checkout
             </Link>
-            <button
-              onClick={clearCart}
-              className="w-full text-gray-600 py-2 hover:text-gray-800"
-            >
+            <button onClick={clearCart} className="w-full text-gray-600 py-2 hover:text-gray-800">
               Clear Cart
             </button>
           </div>

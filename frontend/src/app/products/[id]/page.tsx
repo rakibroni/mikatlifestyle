@@ -87,12 +87,7 @@ export default function ProductDetailPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden">
           {product.images && product.images.length > 0 ? (
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              fill
-              className="object-cover"
-            />
+            <Image src={product.images[0]} alt={product.name} fill className="object-cover" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400">
               No Image
@@ -102,9 +97,7 @@ export default function ProductDetailPage() {
 
         <div>
           <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-          <p className="text-3xl font-bold text-primary-600 mb-6">
-            {formatPrice(product.price)}
-          </p>
+          <p className="text-3xl font-bold text-primary-600 mb-6">{formatPrice(product.price)}</p>
           <p className="text-gray-600 mb-8">{product.description}</p>
 
           {product.sizes.length > 0 && (
@@ -176,9 +169,7 @@ export default function ProductDetailPage() {
             {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
           </button>
 
-          <p className="mt-4 text-sm text-gray-600">
-            Stock: {product.stock} available
-          </p>
+          <p className="mt-4 text-sm text-gray-600">Stock: {product.stock} available</p>
         </div>
       </div>
     </div>
