@@ -128,15 +128,12 @@ The Next.js app lives in the `frontend/` folder. In Vercel:
 
 Then connect your GitHub repo and deploy; Vercel will build from `frontend/`.
 
-## CI (GitHub Actions)
+## CI/CD (GitHub Actions)
 
-The repo runs ESLint, Prettier, type check, tests, build, and security audit on every push and PR to `main`. **If CI fails with "command not found" for Prettier or Jest**, update the frontend lock file and commit it:
+- **CI (develop)** – `ci-dev.yml` runs on push and PR to `develop`: ESLint, Prettier, type check, tests, Knip (non-blocking).
+- **CI (production)** – `ci-prod.yml` runs on push to `main`: same checks + production build + security audit. Pushing to `main` triggers Vercel production deploy.
 
-```bash
-cd frontend && npm install && cd ..
-git add frontend/package-lock.json && git commit -m "chore: update frontend lock file for CI"
-git push
-```
+See **[docs/SETUP-CI-CD.md](docs/SETUP-CI-CD.md)** for branch setup and Vercel settings (Production Branch = `main`, Preview Branches = `*`).
 
 ## License
 
