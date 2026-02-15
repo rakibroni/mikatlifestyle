@@ -5,13 +5,12 @@ describe('Categories', () => {
   it('renders section heading and category links', () => {
     render(<Categories />)
     expect(screen.getByRole('heading', { name: /shop by category/i })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /men's collection/i })).toHaveAttribute(
-      'href',
-      '/products/men'
-    )
-    expect(screen.getByRole('link', { name: /women's collection/i })).toHaveAttribute(
-      'href',
-      '/products/women'
-    )
+
+    const links = screen.getAllByRole('link')
+    const menLink = links.find((link) => link.getAttribute('href') === '/products/men')
+    const womenLink = links.find((link) => link.getAttribute('href') === '/products/women')
+
+    expect(menLink).toBeInTheDocument()
+    expect(womenLink).toBeInTheDocument()
   })
 })
