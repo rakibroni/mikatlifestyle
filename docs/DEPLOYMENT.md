@@ -1,42 +1,50 @@
-# Deployment (main only, no develop branch)
+# Deployment (main + release branch)
 
-Single integration branch: **main**. No develop branch.
+Single integration branch: **main**. Production deploys only from **release** (extra release step).
 
 ---
 
 ## How it works
 
-| Flow           | Trigger                  | What runs                                                        | Result                                                                    |
-| -------------- | ------------------------ | ---------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| **Beta**       | Push or PR to `main`     | `ci.yml` (lint, format, typecheck, tests, Knip, build, security) | CI status on the PR or after push. Vercel deploys production from `main`. |
-| **Production** | Publish a GitHub Release | `release.yml` (same CI on the release tag)                       | Validates that the released version passes all checks.                    |
+| Flow           | Trigger                  | What runs                                                               | Result                                                                           |
+| -------------- | ------------------------ | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **CI (main)**  | Push or PR to `main`     | `ci.yml` (lint, format, typecheck, tests, Knip, build, security)        | CI status. Vercel builds `main` as **Preview** only (not production).            |
+| **Production** | Publish a GitHub Release | `release.yml` (CI on the release tag, then push tag → `release` branch) | Validates the release; updates `release` branch → **Vercel deploys production**. |
 
 ---
 
-## Deploy to production
+## Deploy to production (release step)
 
-1. Merge your feature branch into **main** (or push directly to `main`).
-2. **CI (beta)** runs on that push.
-3. **Vercel** deploys from `main` automatically (Production Branch = `main`).
+Production does **not** deploy on merge to `main`. It deploys only when you publish a GitHub Release.
 
-No separate “release” step in Vercel. Production is whatever is deployed from `main`.
+1. Merge your feature branch into **main**. CI runs; you get preview deployments only.
+2. When you want to ship to production:
+   - Create a tag on the commit you want to release (usually the latest on `main`):
+     ```bash
+     git checkout main
+     git pull origin main
+     git tag v1.0.0
+     git push origin v1.0.0
+     ```
+   - In GitHub: **Releases** → **Draft a new release** → choose that tag (e.g. `v1.0.0`) → **Publish release**.
+3. **CI (production)** runs on that tag (lint, tests, build). If it passes, the workflow pushes that commit to the **release** branch.
+4. **Vercel** sees the new commit on `release` and deploys **production**.
+
+So: **merge to main** = preview/staging only → **Publish release** = production deploy.
 
 ---
 
-## Mark a version as production-ready
+## Vercel settings (required)
 
-1. Create a tag (e.g. `v1.0.0`) on the commit you want to release:
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
-2. In GitHub: **Releases** → **Draft a new release** → choose that tag → **Publish release**.
-3. **CI (production)** runs (`release.yml`) on that tag and validates the build.
-
----
-
-## Vercel settings
-
-- **Production Branch:** `main`
+- **Production Branch:** `release` (not `main`)
 - **Root Directory:** `frontend`
-- **Preview:** PRs get preview deployments; production deploys only from `main`.
+- **Preview:** PRs and pushes to `main` get preview deployments; production deploys only from `release`.
+
+First time: create the `release` branch (e.g. from `main`) and push it so Vercel has a branch to deploy:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b release
+git push -u origin release
+```
