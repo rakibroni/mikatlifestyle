@@ -109,7 +109,7 @@ export const dummyProductsWomen: Product[] = [
   ),
 ]
 
-export const dummyProducts: Product[] = [...dummyProductsMen, ...dummyProductsWomen]
+const dummyProducts: Product[] = [...dummyProductsMen, ...dummyProductsWomen]
 
 export function getDummyProductById(id: string): Product | undefined {
   return dummyProducts.find((p) => p.id === id)
