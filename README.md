@@ -141,6 +141,8 @@ Single branch: **main**. Two workflows:
 - **Deploy to production:** Merge (or push) to `main`. Vercel deploys automatically. No separate “release” step in Vercel.
 - **Mark a version as production-ready:** Create a tag (e.g. `v1.0.0`), then **Publish release** in GitHub. That runs `release.yml` on the tagged commit.
 
+See **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for step-by-step deployment and release.
+
 ## License
 
 Private / Unlicensed
