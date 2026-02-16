@@ -124,19 +124,22 @@ The Next.js app lives in the `frontend/` folder. In Vercel:
 
 1. **Root Directory:** Set to **`frontend`** (Settings → General → Root Directory).  
    Without this, Vercel looks at the repo root and fails with "No Next.js version detected".
-2. Add env var **`NEXT_PUBLIC_API_URL`** pointing to your backend API URL (e.g. your NestJS deployment).
+2. **Git:** Set **Production Branch** to **`main`** (Settings → Git). No develop branch; main is the only integration branch.
+3. Add env var **`NEXT_PUBLIC_API_URL`** pointing to your backend API URL (e.g. your NestJS deployment).
 
-Then connect your GitHub repo and deploy; Vercel will build from `frontend/`.
+Then connect your GitHub repo; every push to `main` deploys production from `frontend/`.
 
-## CI (GitHub Actions)
+## CI/CD & Deployment (no develop branch)
 
-The repo runs ESLint, Prettier, type check, tests, build, and security audit on every push and PR to `main`. **If CI fails with "command not found" for Prettier or Jest**, update the frontend lock file and commit it:
+Single branch: **main**. Two workflows:
 
-```bash
-cd frontend && npm install && cd ..
-git add frontend/package-lock.json && git commit -m "chore: update frontend lock file for CI"
-git push
-```
+| Flow           | Trigger                  | Workflow      | What happens                                                                                     |
+| -------------- | ------------------------ | ------------- | ------------------------------------------------------------------------------------------------ |
+| **Beta**       | Push or PR to `main`     | `ci.yml`      | Install → ESLint, Prettier, typecheck, tests, Knip, build, security. Vercel deploys from `main`. |
+| **Production** | Publish a GitHub Release | `release.yml` | Same CI on the release tag; validates that the released version passes all checks.               |
+
+- **Deploy to production:** Merge (or push) to `main`. Vercel deploys automatically. No separate “release” step in Vercel.
+- **Mark a version as production-ready:** Create a tag (e.g. `v1.0.0`), then **Publish release** in GitHub. That runs `release.yml` on the tagged commit.
 
 ## License
 

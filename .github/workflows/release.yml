@@ -1,14 +1,12 @@
-# Beta: runs on every push to main and on PRs targeting main.
-# No develop branch – main is the only integration branch.
-# Push to main → this CI runs; Vercel auto-deploys production from main.
+# Production: runs when a GitHub Release is published (not draft).
+# Validates the released ref (tag) with the same CI as beta.
+# Vercel production is already deployed from main; publishing a release marks that version as production-ready.
 
-name: CI (beta)
+name: CI (production)
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  release:
+    types: [published]
 
 defaults:
   run:
@@ -23,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -36,6 +36,8 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -50,6 +52,8 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -64,6 +68,8 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -78,6 +84,8 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -86,27 +94,14 @@ jobs:
       - run: npm ci
       - run: npx jest --ci --coverage
 
-  knip:
-    name: Knip
-    runs-on: ubuntu-latest
-    needs: install
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-      - run: npm ci --no-audit --no-fund --no-progress
-      - run: npx knip
-
   build:
     name: Build
     runs-on: ubuntu-latest
     needs: [eslint, prettier, typecheck, test]
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -122,6 +117,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
