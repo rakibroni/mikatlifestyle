@@ -1,6 +1,6 @@
 # Production: runs when a GitHub Release is published (not draft).
-# Validates the released ref (tag) with the same CI as beta.
-# Vercel production is already deployed from main; publishing a release marks that version as production-ready.
+# 1. Validates the released ref (tag) with the same CI as beta.
+# 2. Pushes that ref to branch `release` so Vercel deploys production (Production Branch = release).
 
 name: CI (production)
 
@@ -127,3 +127,17 @@ jobs:
       - run: npm ci
       - run: npm run audit
         continue-on-error: true
+
+  # Push released commit to branch `release` so Vercel deploys production.
+  deploy-production:
+    name: Update release branch (trigger Vercel production)
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
+          fetch-depth: 0
+      - run: git push origin HEAD:release --force
